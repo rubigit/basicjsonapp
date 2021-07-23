@@ -1,3 +1,4 @@
+//import libraries
 let fs = require("fs");
 let historyLib = require("./lib/history");
 const axios = require('axios');
@@ -34,8 +35,7 @@ app.logfile = function (command) {
 //Use library to retrieve content of history file
 app.printHistory = function () {
   console.log(`> Printing History...`)
-  //call method from the library
-  //Assigne content of history file
+  //Retrieve arrar: content of history file
   let arrhisto = historyLib.arrhisto();
   let arrhistoLength = arrhisto.length;
   console.log(`-----------------------------------------------------------`)
@@ -49,6 +49,7 @@ app.printHistory = function () {
   console.log(`-----------------------------------------------------------`)
   //Send command to be recorded in log file
   app.logfile(`Print history`)
+  //Call function to prompt supported commands
   app.consoleOptions()
 }
 
@@ -70,7 +71,7 @@ app.calculateLove = function () {
   //Print the results of love calculation
   axios.request(options).then(function (response) {
     console.log(`-----------------------------------------------------------`)
-    console.log(`\x1b[33m%s\x1b[0m`, ` RESULT:`)
+    console.log(`\x1b[33m%s\x1b[0m`, ` CALCULATION RESULT:`)
     console.log(`\x1b[32m%s\x1b[0m`, ` Percentage of love between ${response.data.fname.toUpperCase()} and ${response.data.sname.toUpperCase()} is: ${response.data.percentage}%`)
     console.log(`\x1b[32m%s\x1b[0m`, ` ${response.data.result}`)
     console.log(`-----------------------------------------------------------`)
@@ -79,6 +80,7 @@ app.calculateLove = function () {
   }).then(response => {
     //Send command to be recorded in log file
     app.logfile(`Calculate love`)
+    //Call function to prompt supported commands
     app.consoleOptions()
   })
     .catch(function (error) {
@@ -110,22 +112,20 @@ app.runCommand = function () {
   } else if (command2 == `HISTORY` && process.argv.length == 3) {
     app.printHistory()
   } else {
-    let msj = ``
+    //Console error message for invalid commands
+    let errMsj = `Command no supported`
     if (!process.argv[2]) {
-      msj = 'Please anter a command'
-    } else {
-      msj = 'Command no supported'
+      errMsj = 'Please anter a valid command'
     }
+    console.log(`-----------------------------------------------------------`)
+    console.log(`\x1b[31m%s\x1b[0m`, ` Oops! ${errMsj}.`)
+    console.log(`-----------------------------------------------------------`)
+    //Call function to prompt supported commands
+    app.consoleOptions()
     //Send command to be recorded in log file
     app.logfile(`Invalid command`)
-    //Console error message
-    console.log(`-----------------------------------------------------------`)
-    console.log(`\x1b[31m%s\x1b[0m`, ` Oops! ${msj}.`)
-    console.log(`-----------------------------------------------------------`)
-    app.consoleOptions()
   }
 }
-
 
 
 //Invoque function to run a command
