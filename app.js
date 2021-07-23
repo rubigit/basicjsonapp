@@ -1,6 +1,7 @@
 //import libraries
 let fs = require("fs");
 let historyLib = require("./lib/history");
+let mathLib = require("./lib/math");
 const axios = require('axios');
 
 
