@@ -84,7 +84,7 @@ app.calculateLove = function (rCommand) {
   let secondname = ``
   let randomlove = ``
 
-  //Assigne random names 
+  //Assigne random names if the commnad is "random" 
   if (rCommand) {
     firstname = app.getMale()
     secondname = app.getFemale()
@@ -150,21 +150,12 @@ app.runCommand = function () {
     command2 = command2.toUpperCase()
   }
 
+
+
   //Validate and call function based on the provided commands
   //two names where provided
   if (process.argv[2] && process.argv[3] && process.argv.length == 4) {
-    if (process.argv[2] == "^[a-zA-Z]+$" && process.argv[3] == "^a-zA-Z]+$") {
-      app.calculateLove()
-    } else {
-      console.log(`-----------------------------------------------------------`)
-      console.log(`\x1b[31m%s\x1b[0m`, ` Oops! Please provide two names.`)
-      console.log(`----------------------------------------------------------- `)
-      //Call function to prompt supported commands
-      app.consoleOptions()
-      //Send command to be recorded in log file
-      app.logfile(`Invalid command`)
-    }
-
+    app.calculateLove()
   }
   //Command is `random`
   else if (command2 == `RANDOM` && process.argv.length == 3) {
@@ -180,13 +171,15 @@ app.runCommand = function () {
       errMsj = 'Please anter a valid command'
     }
     console.log(`----------------------------------------------------------- `)
-    console.log(`\x1b[31m % s\x1b[0m`, ` Oops! ${errMsj}.`)
+    console.log(`\x1b[31m%s\x1b[0m`, ` Oops! ${errMsj}.`)
     console.log(`----------------------------------------------------------- `)
     //Call function to prompt supported commands
     app.consoleOptions()
     //Send command to be recorded in log file
     app.logfile(`Invalid command`)
   }
+
+
 }
 
 //Invoque function to run a command
