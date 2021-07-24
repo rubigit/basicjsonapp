@@ -1,5 +1,5 @@
 {
-  "name": "Love calculator",
+  "name": "love-calculator",
   "version": "1.0.0",
   "description": "Using the command line to fetch a calculation from API: Love calculator",
   "main": "app.js",
